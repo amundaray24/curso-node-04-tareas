@@ -1,0 +1,19 @@
+{
+  "name": "04-tareas-hacer",
+  "version": "0.0.1",
+  "description": "App de consola",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/node_curso/04-tareas-hacer.git"
+  },
+  "author": "ANGERSON JOSE AMUNDARAY RENGIFO",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/node_curso/04-tareas-hacer/issues"
+  },
+  "homepage": "https://gitlab.com/node_curso/04-tareas-hacer#readme"
+}
