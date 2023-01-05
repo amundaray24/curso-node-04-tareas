@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://gitlab.com/node_curso/04-tareas-hacer/issues"
   },
-  "homepage": "https://gitlab.com/node_curso/04-tareas-hacer#readme"
+  "homepage": "https://gitlab.com/node_curso/04-tareas-hacer#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "inquirer": "^7.3.3",
+    "uuid": "^9.0.0"
+  }
 }
