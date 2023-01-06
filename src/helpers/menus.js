@@ -57,6 +57,33 @@ const selectTask = async ( tasks ) => {
   
   let choices = [];
   Object.keys(tasks).forEach(( key, index) => {
+    const {id, description, status, completedDate} = tasks[key];
+    choices.push(
+      {
+        value: id,
+        name: `${description} :: ${status==='PENDING' ? 'PENDING'.red : ('DONE'.green + ' :: ' + completedDate.toString().green)}`,
+        checked: status==='DONE'
+      }
+    );
+  });
+
+  const selectOptions = [
+    {
+      type: 'checkbox',
+      name: 'ids',
+      message: 'Select',
+      choices
+    }
+  ];
+  
+  const {ids} = await inquirer.prompt(selectOptions);
+  return ids;
+}
+
+const deleteTask = async ( tasks ) => {
+  
+  let choices = [];
+  Object.keys(tasks).forEach(( key, index) => {
     const order = `${index + 1}.`.green;
     const {id, description, status, completedDate} = tasks[key];
     choices.push(
@@ -67,6 +94,13 @@ const selectTask = async ( tasks ) => {
     );
   });
   
+  choices.push(
+    {
+      value: '-1',
+      name: `${'0. '.green} Go Back!`
+    }
+  );
+
   const selectOptions = [
     {
       type: 'list',
@@ -80,18 +114,37 @@ const selectTask = async ( tasks ) => {
   return id;
 }
 
-const pause = async ( empty ) => {
-  const question = [
+const confirmSelection = async (message) => {
+
+  const confirm = [
     {
-      type: 'input',
-      name: 'enter',
-      message: empty ? `${'Empty list of tasks'.red}, push ${'ENTER'.green} to continue` : `Push ${'ENTER'.green} to continue`
+      type: 'confirm',
+      name: 'answer',
+      message
     }
-  ];
+  ]  
 
-  console.log('\n');
-  await inquirer.prompt(question);
+  const {answer} = await inquirer.prompt(confirm);
+  if (answer) {
+    console.log('Task Deleted'.green);
+  }
+  return answer;
+}
 
+const pause = async ( empty ) => {
+
+  if (empty !== null){
+    const question = [
+      {
+        type: 'input',
+        name: 'enter',
+        message: empty ? `${'Empty list of tasks'.red}, push ${'ENTER'.green} to continue` : `Push ${'ENTER'.green} to continue`
+      }
+    ];
+  
+    console.log('\n');
+    await inquirer.prompt(question);
+  }
 }
 
 module.exports = {
@@ -99,5 +152,7 @@ module.exports = {
   readInput,
   showTasks,
   selectTask,
+  confirmSelection,
+  deleteTask,
   pause
 }

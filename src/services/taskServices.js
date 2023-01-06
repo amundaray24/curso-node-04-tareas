@@ -36,9 +36,12 @@ const deleteTaskById = ( id ) => {
   saveData(JSON.stringify(data));
 }
 
-const changeStatusById = ( id, status = TaskStatus.DONE ) => {
-  data[id].status = status;
-  data[id].completedDate = (status === TaskStatus.DONE) ? new Date().toLocaleString() : null;
+const changeStatusById = ( tasks ) => {
+  Object.keys(data).forEach(id => {
+    let markStatus = tasks.includes(id);
+    data[id].status = markStatus ? TaskStatus.DONE : TaskStatus.PENDING;
+    data[id].completedDate = markStatus ? new Date().toLocaleString() : null;
+  });
   saveData(JSON.stringify(data));
 }
 
